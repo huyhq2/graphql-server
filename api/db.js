@@ -6,6 +6,8 @@ const mongoDataMethods = {
     getAllBooks: async (condition = null) =>
       condition ? await Book.find() : await Book.find(condition),
     getBookById: async (id) => await Book.findById(id),
+    //TODO: pagination
+    getBooksByAuthorId: async (id) => await Book.find({ authorId: id }), 
     getAllAuthors: async () => await Author.find(),
     getAuthorById: async (id) => await Author.findById(id),
     createAuthor: async (args) => {
