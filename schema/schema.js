@@ -8,6 +8,11 @@ const typeDefs = gql`
     author: Author
   }
 
+  type BookPagination {
+    bookList: [Book]!
+    totalCount: Int
+  }
+
   type Author {
     id: ID!
     name: String
@@ -17,25 +22,25 @@ const typeDefs = gql`
 
   type Genre {
     id: ID!
-    name: String,
+    name: String
   }
-  
+
   input BookInput {
-    name: String!,
-    genre: String!,
+    name: String!
+    genre: String!
     authorId: ID!
   }
 
   input AuthorInput {
-    name: String!,
+    name: String!
     age: Int
   }
 
   # ROOT TYPE
   type Query {
-    books: [Book]
+    books(page: Int, size: Int): BookPagination
     book(id: ID!): Book
-    booksOfAuthor(authorId: ID!): [Book]!
+    booksOfAuthor(authorId: ID!, page: Int, size: Int): BookPagination
     authors: [Author]
     author(id: ID!): Author
   }
@@ -43,7 +48,7 @@ const typeDefs = gql`
   type Mutation {
     createAuthor(data: AuthorInput!): Author
     createBook(data: BookInput!): Book
-    createGenre(name: String ): Genre 
+    createGenre(name: String): Genre
   }
 `;
 
